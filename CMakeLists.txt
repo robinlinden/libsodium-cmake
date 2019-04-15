@@ -260,3 +260,7 @@ configure_file(
     libsodium/src/libsodium/include/sodium/version.h.in
     ${CMAKE_CURRENT_SOURCE_DIR}/libsodium/src/libsodium/include/sodium/version.h
 )
+
+enable_testing()
+
+add_subdirectory(test)
