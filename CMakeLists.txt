@@ -240,6 +240,11 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/sodium/version.c
 )
 
+set_target_properties(${PROJECT_NAME}
+    PROPERTIES
+        C_STANDARD 99
+)
+
 target_include_directories(${PROJECT_NAME}
     PUBLIC
         libsodium/src/libsodium/include
