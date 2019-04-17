@@ -252,6 +252,12 @@ target_include_directories(${PROJECT_NAME}
         libsodium/src/libsodium/include/sodium
 )
 
+target_compile_definitions(${PROJECT_NAME}
+    PRIVATE
+        $<$<BOOL:${BUILD_SHARED_LIBS}>:SODIUM_DLL_EXPORT>
+        $<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:SODIUM_STATIC>
+)
+
 set(VERSION 1.0.17)
 set(SODIUM_LIBRARY_VERSION_MAJOR 10)
 set(SODIUM_LIBRARY_VERSION_MINOR 2)
