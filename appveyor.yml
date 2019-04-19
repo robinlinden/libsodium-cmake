@@ -1,0 +1,48 @@
+configuration:
+  - Debug
+  - Release
+
+environment:
+  matrix:
+  - TOOLCHAIN: Msvc 2017 x86
+    GENERATOR: Visual Studio 15 2017
+
+  - TOOLCHAIN: Msvc 2017 x64
+    GENERATOR: Visual Studio 15 2017 Win64
+
+  - TOOLCHAIN: Msvc 2017 x64/Ninja
+    GENERATOR: Ninja
+    VCVARS: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat
+
+image:
+  - Visual Studio 2017
+
+cache:
+  - C:\cmake-3.11.0-win32-x86
+  - C:\ninja
+
+install:
+  - ps: |
+      if (![IO.File]::Exists("C:\cmake-3.11.0-win32-x86\bin\cmake.exe")) {
+        Start-FileDownload 'https://cmake.org/files/v3.11/cmake-3.11.0-win32-x86.zip'
+        7z x -y cmake-3.11.0-win32-x86.zip -oC:\
+      }
+      $env:PATH="C:\cmake-3.11.0-win32-x86\bin;$env:PATH"
+      if (![IO.File]::Exists("C:\ninja\ninja.exe")) {
+        Start-FileDownload 'https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-win.zip'
+        7z x -y ninja-win.zip -oC:\ninja
+      }
+      $env:PATH="C:\ninja;$env:PATH"
+  - cmd: git submodule update --init --recursive
+
+before_build:
+  - cmd: if defined VCVARS call "%VCVARS%"
+  - ps: mkdir build
+  - ps: cd build
+  - cmd: cmake .. -G"%GENERATOR%"
+
+build_script:
+  - cmake --build . --config %CONFIGURATION%
+
+test_script:
+  - ctest --output-on-failure -C %CONFIGURATION%
