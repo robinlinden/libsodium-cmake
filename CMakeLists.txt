@@ -253,9 +253,10 @@ target_include_directories(${PROJECT_NAME}
 )
 
 target_compile_definitions(${PROJECT_NAME}
+    PUBLIC
+        $<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:SODIUM_STATIC>
     PRIVATE
         $<$<BOOL:${BUILD_SHARED_LIBS}>:SODIUM_DLL_EXPORT>
-        $<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:SODIUM_STATIC>
 )
 
 set(VERSION 1.0.17)
