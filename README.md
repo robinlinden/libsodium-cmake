@@ -37,6 +37,8 @@ FetchContent_Declare(
 
 FetchContent_GetProperties(Sodium)
 if(NOT sodium_POPULATED)
+    set(SODIUM_DISABLE_TESTS ON)
+
     FetchContent_Populate(Sodium)
     add_subdirectory(
         ${sodium_SOURCE_DIR}

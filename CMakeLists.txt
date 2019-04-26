@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.11)
 
 project("sodium")
 
+option(SODIUM_DISABLE_TESTS "Disable tests" OFF)
+
 add_library(${PROJECT_NAME}
     libsodium/src/libsodium/crypto_aead/aes256gcm/aesni/aead_aes256gcm_aesni.c
     libsodium/src/libsodium/crypto_aead/chacha20poly1305/sodium/aead_chacha20poly1305.c
@@ -268,6 +270,7 @@ configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/libsodium/src/libsodium/include/sodium/version.h
 )
 
-enable_testing()
-
-add_subdirectory(test)
+if(NOT SODIUM_DISABLE_TESTS)
+    enable_testing()
+    add_subdirectory(test)
+endif()
