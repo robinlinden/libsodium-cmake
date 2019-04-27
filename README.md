@@ -37,7 +37,7 @@ FetchContent_Declare(
 
 FetchContent_GetProperties(Sodium)
 if(NOT sodium_POPULATED)
-    set(SODIUM_DISABLE_TESTS ON)
+    set(SODIUM_DISABLE_TESTS ON CACHE INTERNAL "")
 
     FetchContent_Populate(Sodium)
     add_subdirectory(
