@@ -104,10 +104,6 @@ make_test(test_codecs
     ${PROJECT_SOURCE_DIR}/libsodium/test/default/codecs.c
 )
 
-make_test(test_core_ed25519
-    ${PROJECT_SOURCE_DIR}/libsodium/test/default/core_ed25519.c
-)
-
 make_test(test_core1
     ${PROJECT_SOURCE_DIR}/libsodium/test/default/core1.c
 )
@@ -196,24 +192,12 @@ make_test(test_pwhash_argon2id
     ${PROJECT_SOURCE_DIR}/libsodium/test/default/pwhash_argon2id.c
 )
 
-make_test(test_pwhash_scrypt
-    ${PROJECT_SOURCE_DIR}/libsodium/test/default/pwhash_scrypt.c
-)
-
-make_test(test_pwhash_scrypt_ll
-    ${PROJECT_SOURCE_DIR}/libsodium/test/default/pwhash_scrypt_ll.c
-)
-
 make_test(test_randombytes
     ${PROJECT_SOURCE_DIR}/libsodium/test/default/randombytes.c
 )
 
 make_test(test_scalarmult
     ${PROJECT_SOURCE_DIR}/libsodium/test/default/scalarmult.c
-)
-
-make_test(test_scalarmult_ed25519
-    ${PROJECT_SOURCE_DIR}/libsodium/test/default/scalarmult_ed25519.c
 )
 
 make_test(test_scalarmult2
@@ -272,10 +256,6 @@ make_test(test_sign
     ${PROJECT_SOURCE_DIR}/libsodium/test/default/sign.c
 )
 
-make_test(test_siphashx24
-    ${PROJECT_SOURCE_DIR}/libsodium/test/default/siphashx24.c
-)
-
 make_test(test_sodium_core
     ${PROJECT_SOURCE_DIR}/libsodium/test/default/sodium_core.c
 )
@@ -316,6 +296,28 @@ make_test(test_verify1
     ${PROJECT_SOURCE_DIR}/libsodium/test/default/verify1.c
 )
 
-make_test(test_xchacha20
-    ${PROJECT_SOURCE_DIR}/libsodium/test/default/xchacha20.c
-)
+if(NOT SODIUM_MINIMAL)
+    make_test(test_core_ed25519
+        ${PROJECT_SOURCE_DIR}/libsodium/test/default/core_ed25519.c
+    )
+
+    make_test(test_pwhash_scrypt
+        ${PROJECT_SOURCE_DIR}/libsodium/test/default/pwhash_scrypt.c
+    )
+
+    make_test(test_pwhash_scrypt_ll
+        ${PROJECT_SOURCE_DIR}/libsodium/test/default/pwhash_scrypt_ll.c
+    )
+
+    make_test(test_scalarmult_ed25519
+        ${PROJECT_SOURCE_DIR}/libsodium/test/default/scalarmult_ed25519.c
+    )
+
+    make_test(test_siphashx24
+        ${PROJECT_SOURCE_DIR}/libsodium/test/default/siphashx24.c
+    )
+
+    make_test(test_xchacha20
+        ${PROJECT_SOURCE_DIR}/libsodium/test/default/xchacha20.c
+    )
+endif()

@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.11)
 project("sodium")
 
 option(SODIUM_DISABLE_TESTS "Disable tests" OFF)
+option(SODIUM_MINIMAL "Perform a minimal build, without deprecated functions and functions that high-level APIs depend on" OFF)
 
 add_library(${PROJECT_NAME}
     libsodium/src/libsodium/crypto_aead/aes256gcm/aesni/aead_aes256gcm_aesni.c
@@ -15,10 +16,7 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/crypto_box/crypto_box.c
     libsodium/src/libsodium/crypto_box/crypto_box_easy.c
     libsodium/src/libsodium/crypto_box/crypto_box_seal.c
-    libsodium/src/libsodium/crypto_box/curve25519xchacha20poly1305/box_curve25519xchacha20poly1305.c
-    libsodium/src/libsodium/crypto_box/curve25519xchacha20poly1305/box_seal_curve25519xchacha20poly1305.c
     libsodium/src/libsodium/crypto_box/curve25519xsalsa20poly1305/box_curve25519xsalsa20poly1305.c
-    libsodium/src/libsodium/crypto_core/ed25519/core_ed25519.c
     libsodium/src/libsodium/crypto_core/ed25519/ref10/ed25519_ref10.c
     libsodium/src/libsodium/crypto_core/ed25519/ref10/fe_25_5/base.h
     libsodium/src/libsodium/crypto_core/ed25519/ref10/fe_25_5/base2.h
@@ -83,14 +81,6 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/crypto_pwhash/argon2/pwhash_argon2i.c
     libsodium/src/libsodium/crypto_pwhash/argon2/pwhash_argon2id.c
     libsodium/src/libsodium/crypto_pwhash/crypto_pwhash.c
-    libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/crypto_scrypt-common.c
-    libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/crypto_scrypt.h
-    libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/nosse/pwhash_scryptsalsa208sha256_nosse.c
-    libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/pbkdf2-sha256.c
-    libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/pbkdf2-sha256.h
-    libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/pwhash_scryptsalsa208sha256.c
-    libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/scrypt_platform.c
-    libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/sse/pwhash_scryptsalsa208sha256_sse.c
     libsodium/src/libsodium/crypto_scalarmult/crypto_scalarmult.c
     libsodium/src/libsodium/crypto_scalarmult/curve25519/ref10/x25519_ref10.c
     libsodium/src/libsodium/crypto_scalarmult/curve25519/ref10/x25519_ref10.h
@@ -108,21 +98,16 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/crypto_scalarmult/curve25519/sandy2x/ladder_namespace.h
     libsodium/src/libsodium/crypto_scalarmult/curve25519/scalarmult_curve25519.c
     libsodium/src/libsodium/crypto_scalarmult/curve25519/scalarmult_curve25519.h
-    libsodium/src/libsodium/crypto_scalarmult/ed25519/ref10/scalarmult_ed25519_ref10.c
     libsodium/src/libsodium/crypto_secretbox/crypto_secretbox.c
     libsodium/src/libsodium/crypto_secretbox/crypto_secretbox_easy.c
-    libsodium/src/libsodium/crypto_secretbox/xchacha20poly1305/secretbox_xchacha20poly1305.c
     libsodium/src/libsodium/crypto_secretbox/xsalsa20poly1305/secretbox_xsalsa20poly1305.c
     libsodium/src/libsodium/crypto_secretstream/xchacha20poly1305/secretstream_xchacha20poly1305.c
     libsodium/src/libsodium/crypto_shorthash/crypto_shorthash.c
     libsodium/src/libsodium/crypto_shorthash/siphash24/ref/shorthash_siphash24_ref.c
     libsodium/src/libsodium/crypto_shorthash/siphash24/ref/shorthash_siphash_ref.h
-    libsodium/src/libsodium/crypto_shorthash/siphash24/ref/shorthash_siphashx24_ref.c
     libsodium/src/libsodium/crypto_shorthash/siphash24/shorthash_siphash24.c
-    libsodium/src/libsodium/crypto_shorthash/siphash24/shorthash_siphashx24.c
     libsodium/src/libsodium/crypto_sign/crypto_sign.c
     libsodium/src/libsodium/crypto_sign/ed25519/ref10/keypair.c
-    libsodium/src/libsodium/crypto_sign/ed25519/ref10/obsolete.c
     libsodium/src/libsodium/crypto_sign/ed25519/ref10/open.c
     libsodium/src/libsodium/crypto_sign/ed25519/ref10/sign.c
     libsodium/src/libsodium/crypto_sign/ed25519/ref10/sign_ed25519_ref10.h
@@ -154,11 +139,6 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/crypto_stream/salsa20/xmm6int/u1.h
     libsodium/src/libsodium/crypto_stream/salsa20/xmm6int/u4.h
     libsodium/src/libsodium/crypto_stream/salsa20/xmm6int/u8.h
-    libsodium/src/libsodium/crypto_stream/salsa2012/ref/stream_salsa2012_ref.c
-    libsodium/src/libsodium/crypto_stream/salsa2012/stream_salsa2012.c
-    libsodium/src/libsodium/crypto_stream/salsa208/ref/stream_salsa208_ref.c
-    libsodium/src/libsodium/crypto_stream/salsa208/stream_salsa208.c
-    libsodium/src/libsodium/crypto_stream/xchacha20/stream_xchacha20.c
     libsodium/src/libsodium/crypto_stream/xsalsa20/stream_xsalsa20.c
     libsodium/src/libsodium/crypto_verify/sodium/verify.c
     libsodium/src/libsodium/include/sodium.h
@@ -242,6 +222,33 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/sodium/version.c
 )
 
+if(NOT SODIUM_MINIMAL)
+    target_sources(${PROJECT_NAME}
+        PRIVATE
+            libsodium/src/libsodium/crypto_box/curve25519xchacha20poly1305/box_curve25519xchacha20poly1305.c
+            libsodium/src/libsodium/crypto_box/curve25519xchacha20poly1305/box_seal_curve25519xchacha20poly1305.c
+            libsodium/src/libsodium/crypto_core/ed25519/core_ed25519.c
+            libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/crypto_scrypt-common.c
+            libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/crypto_scrypt.h
+            libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/nosse/pwhash_scryptsalsa208sha256_nosse.c
+            libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/pbkdf2-sha256.c
+            libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/pbkdf2-sha256.h
+            libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/pwhash_scryptsalsa208sha256.c
+            libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/scrypt_platform.c
+            libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/sse/pwhash_scryptsalsa208sha256_sse.c
+            libsodium/src/libsodium/crypto_scalarmult/ed25519/ref10/scalarmult_ed25519_ref10.c
+            libsodium/src/libsodium/crypto_secretbox/xchacha20poly1305/secretbox_xchacha20poly1305.c
+            libsodium/src/libsodium/crypto_shorthash/siphash24/ref/shorthash_siphashx24_ref.c
+            libsodium/src/libsodium/crypto_shorthash/siphash24/shorthash_siphashx24.c
+            libsodium/src/libsodium/crypto_sign/ed25519/ref10/obsolete.c
+            libsodium/src/libsodium/crypto_stream/salsa2012/ref/stream_salsa2012_ref.c
+            libsodium/src/libsodium/crypto_stream/salsa2012/stream_salsa2012.c
+            libsodium/src/libsodium/crypto_stream/salsa208/ref/stream_salsa208_ref.c
+            libsodium/src/libsodium/crypto_stream/salsa208/stream_salsa208.c
+            libsodium/src/libsodium/crypto_stream/xchacha20/stream_xchacha20.c
+    )
+endif()
+
 set_target_properties(${PROJECT_NAME}
     PROPERTIES
         C_STANDARD 99
@@ -257,8 +264,10 @@ target_include_directories(${PROJECT_NAME}
 target_compile_definitions(${PROJECT_NAME}
     PUBLIC
         $<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:SODIUM_STATIC>
+        $<$<BOOL:${SODIUM_MINIMAL}>:SODIUM_LIBRARY_MINIMAL>
     PRIVATE
         $<$<BOOL:${BUILD_SHARED_LIBS}>:SODIUM_DLL_EXPORT>
+        $<$<BOOL:${SODIUM_MINIMAL}>:MINIMAL>
 )
 
 set(VERSION 1.0.17)
