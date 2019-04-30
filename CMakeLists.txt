@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.11)
 project("sodium")
 
 option(SODIUM_DISABLE_TESTS "Disable tests" OFF)
-option(SODIUM_MINIMAL "Perform a minimal build, without deprecated functions and functions that high-level APIs depend on" OFF)
+option(SODIUM_MINIMAL "Only compile the minimum set of functions required for the high-level API" OFF)
 
 add_library(${PROJECT_NAME}
     libsodium/src/libsodium/crypto_aead/aes256gcm/aesni/aead_aes256gcm_aesni.c
