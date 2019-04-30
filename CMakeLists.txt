@@ -270,9 +270,13 @@ target_compile_definitions(${PROJECT_NAME}
         $<$<BOOL:${SODIUM_MINIMAL}>:MINIMAL>
 )
 
+# Variables that need to be exported to version.h.in
 set(VERSION 1.0.17)
 set(SODIUM_LIBRARY_VERSION_MAJOR 10)
 set(SODIUM_LIBRARY_VERSION_MINOR 2)
+if(SODIUM_MINIMAL)
+    set(SODIUM_LIBRARY_MINIMAL_DEF "#define SODIUM_LIBRARY_MINIMAL 1")
+endif()
 
 configure_file(
     libsodium/src/libsodium/include/sodium/version.h.in
