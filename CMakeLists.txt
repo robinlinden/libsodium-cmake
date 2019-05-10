@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.11)
 
+if(POLICY CMP0077)
+    cmake_policy(SET CMP0077 NEW)
+endif()
+
 project("sodium")
 
 option(SODIUM_DISABLE_TESTS "Disable tests" OFF)
