@@ -17,22 +17,8 @@ environment:
 image:
   - Visual Studio 2017
 
-cache:
-  - C:\cmake-3.11.0-win32-x86
-  - C:\ninja
-
 install:
-  - ps: |
-      if (![IO.File]::Exists("C:\cmake-3.11.0-win32-x86\bin\cmake.exe")) {
-        Start-FileDownload 'https://cmake.org/files/v3.11/cmake-3.11.0-win32-x86.zip'
-        7z x -y cmake-3.11.0-win32-x86.zip -oC:\
-      }
-      $env:PATH="C:\cmake-3.11.0-win32-x86\bin;$env:PATH"
-      if (![IO.File]::Exists("C:\ninja\ninja.exe")) {
-        Start-FileDownload 'https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-win.zip'
-        7z x -y ninja-win.zip -oC:\ninja
-      }
-      $env:PATH="C:\ninja;$env:PATH"
+  - cmd: pip install ninja cmake
   - cmd: git submodule update --init --recursive
 
 before_build:
