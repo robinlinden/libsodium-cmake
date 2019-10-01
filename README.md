@@ -34,17 +34,8 @@ FetchContent_Declare(
     Sodium
     GIT_REPOSITORY https://github.com/robinlinden/libsodium-cmake.git
 )
-
-FetchContent_GetProperties(Sodium)
-if(NOT sodium_POPULATED)
-    set(SODIUM_DISABLE_TESTS ON CACHE INTERNAL "")
-
-    FetchContent_Populate(Sodium)
-    add_subdirectory(
-        ${sodium_SOURCE_DIR}
-        ${sodium_BINARY_DIR}
-    )
-endif()
+set(SODIUM_DISABLE_TESTS ON CACHE INTERNAL "")
+FetchContent_MakeAvailable(Sodium)
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
