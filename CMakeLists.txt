@@ -9,6 +9,7 @@ project("sodium")
 option(SODIUM_DISABLE_TESTS "Disable tests" OFF)
 option(SODIUM_MINIMAL "Only compile the minimum set of functions required for the high-level API" OFF)
 option(SODIUM_ENABLE_BLOCKING_RANDOM "Enable this switch only if /dev/urandom is totally broken on the target platform" OFF)
+option(SODIUM_PRETEND_TO_BE_CONFIGURED "Silence warnings about build system not being properly configured" OFF)
 
 add_library(${PROJECT_NAME}
     libsodium/src/libsodium/crypto_aead/aes256gcm/aesni/aead_aes256gcm_aesni.c
@@ -274,6 +275,7 @@ target_compile_definitions(${PROJECT_NAME}
         $<$<BOOL:${BUILD_SHARED_LIBS}>:SODIUM_DLL_EXPORT>
         $<$<BOOL:${SODIUM_ENABLE_BLOCKING_RANDOM}>:USE_BLOCKING_RANDOM>
         $<$<BOOL:${SODIUM_MINIMAL}>:MINIMAL>
+        $<$<BOOL:${SODIUM_PRETEND_TO_BE_CONFIGURED}>:CONFIGURED>
 )
 
 # Variables that need to be exported to version.h.in
