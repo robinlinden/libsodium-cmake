@@ -301,6 +301,10 @@ if(NOT SODIUM_MINIMAL)
         ${PROJECT_SOURCE_DIR}/libsodium/test/default/core_ed25519.c
     )
 
+    make_test(test_core_ristretto255
+        ${PROJECT_SOURCE_DIR}/libsodium/test/default/core_ristretto255.c
+    )
+
     make_test(test_pwhash_scrypt
         ${PROJECT_SOURCE_DIR}/libsodium/test/default/pwhash_scrypt.c
     )
@@ -311,6 +315,10 @@ if(NOT SODIUM_MINIMAL)
 
     make_test(test_scalarmult_ed25519
         ${PROJECT_SOURCE_DIR}/libsodium/test/default/scalarmult_ed25519.c
+    )
+
+    make_test(test_scalarmult_ristretto255
+        ${PROJECT_SOURCE_DIR}/libsodium/test/default/scalarmult_ristretto255.c
     )
 
     make_test(test_siphashx24

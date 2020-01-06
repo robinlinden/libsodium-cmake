@@ -162,6 +162,7 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/include/sodium/crypto_core_ed25519.h
     libsodium/src/libsodium/include/sodium/crypto_core_hchacha20.h
     libsodium/src/libsodium/include/sodium/crypto_core_hsalsa20.h
+    libsodium/src/libsodium/include/sodium/crypto_core_ristretto255.h
     libsodium/src/libsodium/include/sodium/crypto_core_salsa20.h
     libsodium/src/libsodium/include/sodium/crypto_core_salsa2012.h
     libsodium/src/libsodium/include/sodium/crypto_core_salsa208.h
@@ -182,6 +183,7 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/include/sodium/crypto_scalarmult.h
     libsodium/src/libsodium/include/sodium/crypto_scalarmult_curve25519.h
     libsodium/src/libsodium/include/sodium/crypto_scalarmult_ed25519.h
+    libsodium/src/libsodium/include/sodium/crypto_scalarmult_ristretto255.h
     libsodium/src/libsodium/include/sodium/crypto_secretbox.h
     libsodium/src/libsodium/include/sodium/crypto_secretbox_xchacha20poly1305.h
     libsodium/src/libsodium/include/sodium/crypto_secretbox_xsalsa20poly1305.h
@@ -211,15 +213,13 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/include/sodium/private/mutex.h
     libsodium/src/libsodium/include/sodium/private/sse2_64_32.h
     libsodium/src/libsodium/include/sodium/randombytes.h
-    libsodium/src/libsodium/include/sodium/randombytes_nativeclient.h
-    libsodium/src/libsodium/include/sodium/randombytes_salsa20_random.h
+    libsodium/src/libsodium/include/sodium/randombytes_internal_random.h
     libsodium/src/libsodium/include/sodium/randombytes_sysrandom.h
     libsodium/src/libsodium/include/sodium/runtime.h
     libsodium/src/libsodium/include/sodium/utils.h
     libsodium/src/libsodium/include/sodium/version.h
-    libsodium/src/libsodium/randombytes/nativeclient/randombytes_nativeclient.c
+    libsodium/src/libsodium/randombytes/internal/randombytes_internal_random.c
     libsodium/src/libsodium/randombytes/randombytes.c
-    libsodium/src/libsodium/randombytes/salsa20/randombytes_salsa20_random.c
     libsodium/src/libsodium/randombytes/sysrandom/randombytes_sysrandom.c
     libsodium/src/libsodium/sodium/codecs.c
     libsodium/src/libsodium/sodium/core.c
@@ -234,6 +234,7 @@ if(NOT SODIUM_MINIMAL)
             libsodium/src/libsodium/crypto_box/curve25519xchacha20poly1305/box_curve25519xchacha20poly1305.c
             libsodium/src/libsodium/crypto_box/curve25519xchacha20poly1305/box_seal_curve25519xchacha20poly1305.c
             libsodium/src/libsodium/crypto_core/ed25519/core_ed25519.c
+            libsodium/src/libsodium/crypto_core/ed25519/core_ristretto255.c
             libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/crypto_scrypt-common.c
             libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/crypto_scrypt.h
             libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/nosse/pwhash_scryptsalsa208sha256_nosse.c
@@ -243,6 +244,7 @@ if(NOT SODIUM_MINIMAL)
             libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/scrypt_platform.c
             libsodium/src/libsodium/crypto_pwhash/scryptsalsa208sha256/sse/pwhash_scryptsalsa208sha256_sse.c
             libsodium/src/libsodium/crypto_scalarmult/ed25519/ref10/scalarmult_ed25519_ref10.c
+            libsodium/src/libsodium/crypto_scalarmult/ristretto255/ref10/scalarmult_ristretto255_ref10.c
             libsodium/src/libsodium/crypto_secretbox/xchacha20poly1305/secretbox_xchacha20poly1305.c
             libsodium/src/libsodium/crypto_shorthash/siphash24/ref/shorthash_siphashx24_ref.c
             libsodium/src/libsodium/crypto_shorthash/siphash24/shorthash_siphashx24.c
@@ -279,9 +281,9 @@ target_compile_definitions(${PROJECT_NAME}
 )
 
 # Variables that need to be exported to version.h.in
-set(VERSION 1.0.17)
+set(VERSION 1.0.18)
 set(SODIUM_LIBRARY_VERSION_MAJOR 10)
-set(SODIUM_LIBRARY_VERSION_MINOR 2)
+set(SODIUM_LIBRARY_VERSION_MINOR 3)
 if(SODIUM_MINIMAL)
     set(SODIUM_LIBRARY_MINIMAL_DEF "#define SODIUM_LIBRARY_MINIMAL 1")
 endif()
