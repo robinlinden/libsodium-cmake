@@ -1,6 +1,6 @@
 # libsodium-cmake
 
-[![Travis build status](https://travis-ci.org/robinlinden/libsodium-cmake.svg?branch=master)](https://travis-ci.org/robinlinden/libsodium-cmake)
+[![Travis build status](https://travis-ci.com/robinlinden/libsodium-cmake.svg?branch=master)](https://travis-ci.com/robinlinden/libsodium-cmake)
 [![Appveyor build status](https://ci.appveyor.com/api/projects/status/ra7l1pmh1viiss6k/branch/master?svg=true)](https://ci.appveyor.com/project/robinlinden/libsodium-cmake/branch/master)
 
 ## Description
