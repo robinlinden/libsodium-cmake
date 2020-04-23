@@ -30,11 +30,10 @@ make test
 ## Using in your project
 
 ```cmake
-FetchContent_Declare(
-    Sodium
+FetchContent_Declare(Sodium
     GIT_REPOSITORY https://github.com/robinlinden/libsodium-cmake.git
 )
-set(SODIUM_DISABLE_TESTS ON CACHE INTERNAL "")
+set(SODIUM_DISABLE_TESTS ON)
 FetchContent_MakeAvailable(Sodium)
 
 target_link_libraries(${PROJECT_NAME}
