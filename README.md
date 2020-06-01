@@ -30,6 +30,8 @@ make test
 ## Using in your project
 
 ```cmake
+include(FetchContent)
+
 FetchContent_Declare(Sodium
     GIT_REPOSITORY https://github.com/robinlinden/libsodium-cmake.git
 )
