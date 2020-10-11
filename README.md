@@ -1,7 +1,7 @@
 # libsodium-cmake
 
 [![Travis build status](https://travis-ci.com/robinlinden/libsodium-cmake.svg?branch=master)](https://travis-ci.com/robinlinden/libsodium-cmake)
-[![Appveyor build status](https://ci.appveyor.com/api/projects/status/ra7l1pmh1viiss6k/branch/master?svg=true)](https://ci.appveyor.com/project/robinlinden/libsodium-cmake/branch/master)
+[![Windows CI](https://github.com/robinlinden/libsodium-cmake/workflows/Windows%20CI/badge.svg)](https://github.com/robinlinden/libsodium-cmake/actions?query=workflow%3A%22Windows+CI%22)
 
 ## Description
 
