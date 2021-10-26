@@ -1,0 +1,59 @@
+name: Linux CI
+
+on: [push, pull_request]
+
+jobs:
+  ci:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-20.04
+
+    env:
+      CTEST_OUTPUT_ON_FAILURE: ON
+      CTEST_PARALLEL_LEVEL: 2
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: gcc-static
+            compiler: gcc
+            cmake-args: "-DBUILD_SHARED_LIBS=OFF"
+          - name: gcc-dynamic
+            compiler: gcc
+            cmake-args: "-DBUILD_SHARED_LIBS=ON"
+          - name: gcc-minimal
+            compiler: gcc
+            cmake-args: "-DSODIUM_MINIMAL=ON"
+          - name: clang-static
+            compiler: clang
+            cmake-args: "-DBUILD_SHARED_LIBS=OFF"
+          - name: clang-dynamic
+            compiler: clang
+            cmake-args: "-DBUILD_SHARED_LIBS=ON"
+          - name: clang-minimal
+            compiler: clang
+            cmake-args: "-DSODIUM_MINIMAL=ON"
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install
+        run: pip install cmake==3.18.2.post1 ninja==1.10.0.post2 --upgrade
+
+      - name: Setup
+        run: echo "CC=${{ matrix.compiler }}" >> $GITHUB_ENV
+
+      - name: CMake
+        run: cmake -S . -B build -G Ninja ${{ matrix.cmake-args }}
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Test
+        run: (cd build && ctest)
