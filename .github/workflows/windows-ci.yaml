@@ -28,16 +28,16 @@ jobs:
             cmake-args: -A x64
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: true
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.10"
 
       - name: Install
-        run: pip install cmake==3.21.4 ninja==1.10.2.2 --upgrade
+        run: pip install cmake==3.22.4 ninja==1.10.2.3 --upgrade
 
       - name: CMake
         run: cmake -S . -B build -G "${{ matrix.generator }}" ${{ matrix.cmake-args }}
