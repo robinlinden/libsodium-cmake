@@ -1,11 +1,11 @@
-name: Linux CI
+name: ci
 
 on: [push, pull_request]
 
 jobs:
   ci:
     name: ${{ matrix.name }}
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
 
     env:
       CTEST_OUTPUT_ON_FAILURE: ON
@@ -16,23 +16,43 @@ jobs:
       matrix:
         include:
           - name: gcc-static
+            os: ubuntu-20.04
             compiler: gcc
+            generator: Ninja
             cmake-args: "-DBUILD_SHARED_LIBS=OFF"
           - name: gcc-dynamic
+            os: ubuntu-20.04
             compiler: gcc
+            generator: Ninja
             cmake-args: "-DBUILD_SHARED_LIBS=ON"
           - name: gcc-minimal
+            os: ubuntu-20.04
             compiler: gcc
+            generator: Ninja
             cmake-args: "-DSODIUM_MINIMAL=ON"
           - name: clang-static
+            os: ubuntu-20.04
             compiler: clang
+            generator: Ninja
             cmake-args: "-DBUILD_SHARED_LIBS=OFF"
           - name: clang-dynamic
+            os: ubuntu-20.04
             compiler: clang
+            generator: Ninja
             cmake-args: "-DBUILD_SHARED_LIBS=ON"
           - name: clang-minimal
+            os: ubuntu-20.04
             compiler: clang
+            generator: Ninja
             cmake-args: "-DSODIUM_MINIMAL=ON"
+          - name: windows-2019-cl-x86
+            os: windows-2019
+            generator: Visual Studio 16 2019
+            cmake-args: -A Win32
+          - name: windows-2019-cl-x64
+            os: windows-2019
+            generator: Visual Studio 16 2019
+            cmake-args: -A x64
 
     steps:
       - uses: actions/checkout@v3
@@ -48,12 +68,18 @@ jobs:
 
       - name: Setup
         run: echo "CC=${{ matrix.compiler }}" >> $GITHUB_ENV
+        if: startsWith(matrix.os, 'ubuntu')
 
       - name: CMake
-        run: cmake -S . -B build -G Ninja ${{ matrix.cmake-args }}
+        run: cmake -S . -B build -G "${{ matrix.generator }}" ${{ matrix.cmake-args }}
 
       - name: Build
         run: cmake --build build
 
       - name: Test
         run: (cd build && ctest)
+        if: startsWith(matrix.os, 'ubuntu')
+
+      - name: Test
+        run: (cd build && ctest -C Debug )
+        if: startsWith(matrix.os, 'windows')
