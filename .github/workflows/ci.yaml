@@ -45,13 +45,13 @@ jobs:
             compiler: clang
             generator: Ninja
             cmake-args: "-DSODIUM_MINIMAL=ON"
-          - name: windows-2019-cl-x86
-            os: windows-2019
-            generator: Visual Studio 16 2019
+          - name: windows-2022-cl-x86
+            os: windows-2022
+            generator: Visual Studio 17 2022
             cmake-args: -A Win32
-          - name: windows-2019-cl-x64
-            os: windows-2019
-            generator: Visual Studio 16 2019
+          - name: windows-2022-cl-x64
+            os: windows-2022
+            generator: Visual Studio 17 2022
             cmake-args: -A x64
 
     steps:
