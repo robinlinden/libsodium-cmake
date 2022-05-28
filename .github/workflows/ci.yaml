@@ -16,32 +16,32 @@ jobs:
       matrix:
         include:
           - name: gcc-static
-            os: ubuntu-20.04
+            os: ubuntu-22.04
             compiler: gcc
             generator: Ninja
             cmake-args: "-DBUILD_SHARED_LIBS=OFF"
           - name: gcc-dynamic
-            os: ubuntu-20.04
+            os: ubuntu-22.04
             compiler: gcc
             generator: Ninja
             cmake-args: "-DBUILD_SHARED_LIBS=ON"
           - name: gcc-minimal
-            os: ubuntu-20.04
+            os: ubuntu-22.04
             compiler: gcc
             generator: Ninja
             cmake-args: "-DSODIUM_MINIMAL=ON"
           - name: clang-static
-            os: ubuntu-20.04
+            os: ubuntu-22.04
             compiler: clang
             generator: Ninja
             cmake-args: "-DBUILD_SHARED_LIBS=OFF"
           - name: clang-dynamic
-            os: ubuntu-20.04
+            os: ubuntu-22.04
             compiler: clang
             generator: Ninja
             cmake-args: "-DBUILD_SHARED_LIBS=ON"
           - name: clang-minimal
-            os: ubuntu-20.04
+            os: ubuntu-22.04
             compiler: clang
             generator: Ninja
             cmake-args: "-DSODIUM_MINIMAL=ON"
