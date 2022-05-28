@@ -27,6 +27,10 @@ make test
 ## Using in your project
 
 ```cmake
+cmake_minimum_required(VERSION 3.14)
+# 3.11 and higher is supported, but this example uses
+# `FetchContent_MakeAvailable` which is only available starting with 3.14.
+
 include(FetchContent)
 
 FetchContent_Declare(Sodium
