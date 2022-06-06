@@ -13,6 +13,11 @@ function(make_test name)
             ${PROJECT_SOURCE_DIR}/libsodium/test/quirks/
     )
 
+    target_compile_definitions(${name}
+        PRIVATE
+            $<$<C_COMPILER_ID:MSVC>:_CRT_SECURE_NO_WARNINGS>
+    )
+
     add_test(
         NAME ${name}
         COMMAND ${name}

@@ -277,6 +277,7 @@ target_compile_definitions(${PROJECT_NAME}
         $<$<BOOL:${BUILD_SHARED_LIBS}>:SODIUM_DLL_EXPORT>
         $<$<BOOL:${SODIUM_ENABLE_BLOCKING_RANDOM}>:USE_BLOCKING_RANDOM>
         $<$<BOOL:${SODIUM_MINIMAL}>:MINIMAL>
+        $<$<C_COMPILER_ID:MSVC>:_CRT_SECURE_NO_WARNINGS>
 )
 
 # Variables that need to be exported to version.h.in
