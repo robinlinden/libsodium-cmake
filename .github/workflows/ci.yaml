@@ -68,7 +68,7 @@ jobs:
       - run: echo "CC=${{ matrix.compiler }}" >> $GITHUB_ENV
         if: startsWith(matrix.os, 'ubuntu')
 
-      - run: cmake -S . -B build -G "${{ matrix.generator }}" ${{ matrix.cmake-args }}
+      - run: cmake -Wdev -Werror=dev -S . -B build -G "${{ matrix.generator }}" ${{ matrix.cmake-args }}
 
       - run: cmake --build build
 
