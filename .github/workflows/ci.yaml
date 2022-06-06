@@ -63,23 +63,17 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install
-        run: pip install cmake==3.22.4 ninja==1.10.2.3 --upgrade
+      - run: pip install cmake==3.22.4 ninja==1.10.2.3 --upgrade
 
-      - name: Setup
-        run: echo "CC=${{ matrix.compiler }}" >> $GITHUB_ENV
+      - run: echo "CC=${{ matrix.compiler }}" >> $GITHUB_ENV
         if: startsWith(matrix.os, 'ubuntu')
 
-      - name: CMake
-        run: cmake -S . -B build -G "${{ matrix.generator }}" ${{ matrix.cmake-args }}
+      - run: cmake -S . -B build -G "${{ matrix.generator }}" ${{ matrix.cmake-args }}
 
-      - name: Build
-        run: cmake --build build
+      - run: cmake --build build
 
-      - name: Test
-        run: (cd build && ctest)
+      - run: (cd build && ctest)
         if: startsWith(matrix.os, 'ubuntu')
 
-      - name: Test
-        run: (cd build && ctest -C Debug )
+      - run: (cd build && ctest -C Debug )
         if: startsWith(matrix.os, 'windows')
