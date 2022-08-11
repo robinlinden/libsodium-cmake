@@ -63,7 +63,7 @@ jobs:
         with:
           python-version: "3.10"
 
-      - run: pip install cmake==3.22.5 ninja==1.10.2.3 --upgrade
+      - run: pip install cmake==3.24.0 ninja==1.10.2.3 --upgrade
 
       - run: echo "CC=${{ matrix.compiler }}" >> $GITHUB_ENV
         if: startsWith(matrix.os, 'ubuntu')
