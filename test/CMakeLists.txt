@@ -25,6 +25,14 @@ function(make_test name)
     )
 endfunction()
 
+make_test(aead_aegis128l
+    ${PROJECT_SOURCE_DIR}/libsodium/test/default/aead_aegis128l.c
+)
+
+make_test(aead_aegis256
+    ${PROJECT_SOURCE_DIR}/libsodium/test/default/aead_aegis256.c
+)
+
 make_test(test_aead_aes256gcm
     ${PROJECT_SOURCE_DIR}/libsodium/test/default/aead_aes256gcm.c
 )
@@ -249,10 +257,6 @@ make_test(test_secretbox_easy2
     ${PROJECT_SOURCE_DIR}/libsodium/test/default/secretbox_easy2.c
 )
 
-make_test(test_secretstream
-    ${PROJECT_SOURCE_DIR}/libsodium/test/default/secretstream.c
-)
-
 make_test(test_shorthash
     ${PROJECT_SOURCE_DIR}/libsodium/test/default/shorthash.c
 )
@@ -308,6 +312,10 @@ if(NOT SODIUM_MINIMAL)
 
     make_test(test_core_ristretto255
         ${PROJECT_SOURCE_DIR}/libsodium/test/default/core_ristretto255.c
+    )
+
+    make_test(test_kdf_hkdf
+        ${PROJECT_SOURCE_DIR}/libsodium/test/default/kdf_hkdf.c
     )
 
     make_test(test_pwhash_scrypt
