@@ -53,6 +53,10 @@ jobs:
             os: windows-2022
             generator: Visual Studio 17 2022
             cmake-args: -A x64
+          - name: clang-cl-x64
+            os: windows-2022
+            generator: Visual Studio 17 2022
+            cmake-args: -T ClangCL -A x64
 
     steps:
       - uses: actions/checkout@v3
