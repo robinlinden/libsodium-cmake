@@ -292,6 +292,27 @@ target_compile_definitions(${PROJECT_NAME}
         $<$<C_COMPILER_ID:MSVC>:_CRT_SECURE_NO_WARNINGS>
 )
 
+# No generator expression for CMAKE_C_COMPILER_FRONTEND_VARIANT until CMake 3.30:
+# https://gitlab.kitware.com/cmake/cmake/-/merge_requests/9538
+if(CMAKE_C_COMPILER_ID STREQUAL "Clang" AND CMAKE_C_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")
+    target_compile_definitions(${PROJECT_NAME}
+        PRIVATE
+            _CRT_SECURE_NO_WARNINGS
+    )
+
+    # Special manual feature-handling for clang-cl.
+    target_compile_options(${PROJECT_NAME}
+        PUBLIC
+            # blake2b-compress-avx2
+            -mavx2
+        PRIVATE
+            # aead_aes256gcm_aesni
+            -maes
+            -mpclmul
+            -mssse3
+    )
+endif()
+
 # Variables that need to be exported to version.h.in
 set(VERSION 1.0.20)
 set(SODIUM_LIBRARY_VERSION_MAJOR 26)

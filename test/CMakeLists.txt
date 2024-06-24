@@ -18,6 +18,14 @@ function(make_test name)
             $<$<C_COMPILER_ID:MSVC>:_CRT_SECURE_NO_WARNINGS>
     )
 
+    if(CMAKE_C_COMPILER_ID STREQUAL "Clang"
+            AND CMAKE_C_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")
+        target_compile_definitions(${name}
+            PRIVATE
+                _CRT_SECURE_NO_WARNINGS
+        )
+    endif()
+
     add_test(
         NAME ${name}
         COMMAND ${name}
