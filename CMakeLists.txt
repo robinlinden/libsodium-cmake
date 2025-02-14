@@ -11,9 +11,18 @@ option(SODIUM_MINIMAL "Only compile the minimum set of functions required for th
 option(SODIUM_ENABLE_BLOCKING_RANDOM "Enable this switch only if /dev/urandom is totally broken on the target platform" OFF)
 
 add_library(${PROJECT_NAME}
+    libsodium/src/libsodium/crypto_aead/aegis128l/aead_aegis128l.c
+    libsodium/src/libsodium/crypto_aead/aegis128l/aegis128l_aesni.c
+    libsodium/src/libsodium/crypto_aead/aegis128l/aegis128l_armcrypto.c
+    libsodium/src/libsodium/crypto_aead/aegis128l/aegis128l_soft.c
+    libsodium/src/libsodium/crypto_aead/aegis256/aead_aegis256.c
+    libsodium/src/libsodium/crypto_aead/aegis256/aegis256_aesni.c
+    libsodium/src/libsodium/crypto_aead/aegis256/aegis256_armcrypto.c
+    libsodium/src/libsodium/crypto_aead/aegis256/aegis256_soft.c
     libsodium/src/libsodium/crypto_aead/aes256gcm/aesni/aead_aes256gcm_aesni.c
-    libsodium/src/libsodium/crypto_aead/chacha20poly1305/sodium/aead_chacha20poly1305.c
-    libsodium/src/libsodium/crypto_aead/xchacha20poly1305/sodium/aead_xchacha20poly1305.c
+    libsodium/src/libsodium/crypto_aead/aes256gcm/aead_aes256gcm.c
+    libsodium/src/libsodium/crypto_aead/chacha20poly1305/aead_chacha20poly1305.c
+    libsodium/src/libsodium/crypto_aead/xchacha20poly1305/aead_xchacha20poly1305.c
     libsodium/src/libsodium/crypto_auth/crypto_auth.c
     libsodium/src/libsodium/crypto_auth/hmacsha256/auth_hmacsha256.c
     libsodium/src/libsodium/crypto_auth/hmacsha512/auth_hmacsha512.c
@@ -35,6 +44,7 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/crypto_core/hsalsa20/core_hsalsa20.c
     libsodium/src/libsodium/crypto_core/hsalsa20/ref2/core_hsalsa20_ref2.c
     libsodium/src/libsodium/crypto_core/salsa/ref/core_salsa_ref.c
+    libsodium/src/libsodium/crypto_core/softaes/softaes.c
     libsodium/src/libsodium/crypto_generichash/blake2b/generichash_blake2.c
     libsodium/src/libsodium/crypto_generichash/blake2b/ref/blake2.h
     libsodium/src/libsodium/crypto_generichash/blake2b/ref/blake2b-compress-avx2.c
@@ -57,6 +67,8 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/crypto_hash/sha512/hash_sha512.c
     libsodium/src/libsodium/crypto_kdf/blake2b/kdf_blake2b.c
     libsodium/src/libsodium/crypto_kdf/crypto_kdf.c
+    libsodium/src/libsodium/crypto_kdf/hkdf/kdf_hkdf_sha256.c
+    libsodium/src/libsodium/crypto_kdf/hkdf/kdf_hkdf_sha512.c
     libsodium/src/libsodium/crypto_kx/crypto_kx.c
     libsodium/src/libsodium/crypto_onetimeauth/crypto_onetimeauth.c
     libsodium/src/libsodium/crypto_onetimeauth/poly1305/donna/poly1305_donna.c
@@ -98,8 +110,6 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/crypto_scalarmult/curve25519/sandy2x/fe51_namespace.h
     libsodium/src/libsodium/crypto_scalarmult/curve25519/sandy2x/fe_frombytes_sandy2x.c
     libsodium/src/libsodium/crypto_scalarmult/curve25519/sandy2x/ladder.h
-    libsodium/src/libsodium/crypto_scalarmult/curve25519/sandy2x/ladder_base.h
-    libsodium/src/libsodium/crypto_scalarmult/curve25519/sandy2x/ladder_base_namespace.h
     libsodium/src/libsodium/crypto_scalarmult/curve25519/sandy2x/ladder_namespace.h
     libsodium/src/libsodium/crypto_scalarmult/curve25519/scalarmult_curve25519.c
     libsodium/src/libsodium/crypto_scalarmult/curve25519/scalarmult_curve25519.h
@@ -145,9 +155,11 @@ add_library(${PROJECT_NAME}
     libsodium/src/libsodium/crypto_stream/salsa20/xmm6int/u4.h
     libsodium/src/libsodium/crypto_stream/salsa20/xmm6int/u8.h
     libsodium/src/libsodium/crypto_stream/xsalsa20/stream_xsalsa20.c
-    libsodium/src/libsodium/crypto_verify/sodium/verify.c
+    libsodium/src/libsodium/crypto_verify/verify.c
     libsodium/src/libsodium/include/sodium.h
     libsodium/src/libsodium/include/sodium/core.h
+    libsodium/src/libsodium/include/sodium/crypto_aead_aegis128l.h
+    libsodium/src/libsodium/include/sodium/crypto_aead_aegis256.h
     libsodium/src/libsodium/include/sodium/crypto_aead_aes256gcm.h
     libsodium/src/libsodium/include/sodium/crypto_aead_chacha20poly1305.h
     libsodium/src/libsodium/include/sodium/crypto_aead_xchacha20poly1305.h
@@ -281,9 +293,9 @@ target_compile_definitions(${PROJECT_NAME}
 )
 
 # Variables that need to be exported to version.h.in
-set(VERSION 1.0.18)
-set(SODIUM_LIBRARY_VERSION_MAJOR 10)
-set(SODIUM_LIBRARY_VERSION_MINOR 3)
+set(VERSION 1.0.20)
+set(SODIUM_LIBRARY_VERSION_MAJOR 26)
+set(SODIUM_LIBRARY_VERSION_MINOR 2)
 if(SODIUM_MINIMAL)
     set(SODIUM_LIBRARY_MINIMAL_DEF "#define SODIUM_LIBRARY_MINIMAL 1")
 endif()
