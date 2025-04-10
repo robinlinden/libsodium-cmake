@@ -87,3 +87,7 @@ jobs:
 
       - run: (cd build && ctest -C Debug )
         if: startsWith(matrix.os, 'windows')
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
