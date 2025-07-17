@@ -1,8 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
-
-if(POLICY CMP0077)
-    cmake_policy(SET CMP0077 NEW)
-endif()
+cmake_minimum_required(VERSION 3.11...4.0)
 
 project("sodium" LANGUAGES C)
 
